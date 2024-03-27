@@ -1,6 +1,6 @@
 # CumulocityServices
 ## Introduction
-This SDK offers developers c8y functionalities that are commonly used across solutions. It is using the [open api generated library](https://github.com/SoftwareAG/cumulocity-clients-dotnet) which is also available on github and offers additional functionalities like the bootstrapping mechanism.  
+This SDK offers developers c8y functionalities that are commonly used across solutions. It is using the [open api generated library](https://github.com/SoftwareAG/cumulocity-clients-dotnet) which is also available on github and builds additional functionality on top of that.
 Developers using this SDK should be familiar with the basic concepts of cumulocity microservice development: https://cumulocity.com/guides/microservice-sdk/concept/
 ## Functionalities
 ### Bootstrapping for multi tenant microservices
