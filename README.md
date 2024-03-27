@@ -87,6 +87,48 @@ var managedObjectsOfType = ICumulocityCoreLibrary.RequestAllByQueryAsync<Managed
 ```
 Please find more detailed examples in the [RestControllerExample project](https://github.com/SoftwareAG/cumulocity-sdk-dotnet/tree/main/src/Examples/RestControllerExample).
 
+### Health and metrics
+HealthAndMetricsStartup per default offers two endpoints:
+- a standard health endpoint (/data/health)
+- some default metrics like memory usage and so on (/data/metrics)
+
+To use the default HealthAndMetricsStartup in an project where you don't use any other REST endpoints you can use it like this:
+```
+var host = Host.CreateDefaultBuilder(args)
+  .ConfigureHealthAndMetrics<HealthAndMetricsStartup>() // optionally you can set a port, default is 5000
+```
+
+If you are using additional REST endpoints you can extend the default HealthAndMetricsStartup and configure your own Startup like this:
+```
+var host = Host.CreateDefaultBuilder(args)
+  .ConfigureHealthAndMetrics<MyStartup>() // optionally you can set a port, default is 5000
+```
+```
+public class MyStartup : HealthAndMetricsStartup
+{
+    // ...
+
+    override protected void AdditionalConfiguration(IApplicationBuilder applicationBuilder, IHostEnvironment hostEnvironment)
+    {
+        // my additional configuration
+    }
+
+    override protected void AdditionalServiceConfiguration(IServiceCollection services)
+    {
+        // my additional configuration
+    }
+
+    // ...
+}
+```
+To add your own health checks, you can do this:
+```
+var host = Host.CreateDefaultBuilder(args)
+  .ConfigureHealthAndMetrics<HealthAndMetricsStartup>()
+  .AddHealthCheck<CumulocityApiHealthCheck>("cumulocityApi")
+```
+The CumulocityApiHealthCheck is also included in this SDK and simply tries to access the cumulocity api for its check.
+
 ### Functionalities to be implemented
 Following functionalities are not yet implemented but will be added in the future:
 - operation handling
