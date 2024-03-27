@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>C8yServices</RootNamespace>
+        <NoWarn>CA1848,CA1707,CA1711,CA1716,CA1720</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="GitInfo" Version="2.3.0" />
+		<PackageReference Include="Com.Cumulocity.Client" Version="1.0.0-rc.0.41" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.2" />
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+        <PackageReference Include="OneOf" Version="3.0.255" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
+        <PackageReference Include="MinVer" Version="4.2.0">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="5.0.1" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.6.0" />
+		<PackageReference Include="prometheus-net.AspNetCore" Version="7.0.0" />
+	</ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>C8yServices-Tests</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
+</Project>
