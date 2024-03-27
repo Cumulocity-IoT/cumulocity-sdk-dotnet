@@ -12,7 +12,7 @@ var host = Host.CreateDefaultBuilder(args)
   .ConfigureServices((context, services) => services
     // adds configuration to be used for accessing bootstrapping information
     .AddC8YConfigurationFromCumulocityPlatform()  
-    // adds IRootCumulocityApiProvider to be used for accessing subscribed subtenants 
+    // adds ICumulocityCoreLibraryProvider to be used for accessing subscribed subtenants 
     .AddCumulocityCoreLibraryProvider()) 
   .Build();
 ```
