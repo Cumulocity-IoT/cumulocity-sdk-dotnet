@@ -129,6 +129,8 @@ var host = Host.CreateDefaultBuilder(args)
 ```
 The CumulocityApiHealthCheck is also included in this SDK and simply tries to access the cumulocity api for its check.
 
+Please find more detailed examples in the [RestControllerExample project](https://github.com/SoftwareAG/cumulocity-sdk-dotnet/tree/main/src/Examples/RestControllerExample).
+
 ### Functionalities to be implemented
 Following functionalities are not yet implemented but will be added in the future:
 - operation handling
