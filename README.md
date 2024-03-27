@@ -4,7 +4,7 @@ This SDK offers developers c8y functionalities that are commonly used across sol
 Developers using this SDK should be familiar with the basic concepts of cumulocity microservice development: https://cumulocity.com/guides/microservice-sdk/concept/
 ## Functionalities
 ### Bootstrapping for multi tenant microservices
-Bootstrapping means that there is a specific bootstrap user for each applicaton. This user can be used to retrieve service users for every tenant that the microservice is subscribed on. This SDK offers an build in mechanism that periodically checks for new subscriptions and adds them to some provider, over which the developer can access them. 
+Bootstrapping means that there is a specific bootstrap user for each applicaton. This user can be used to retrieve service users for every tenant that the microservice is subscribed on. This SDK offers an build in mechanism that periodically checks for new subscriptions and adds them to some provider, which can be used by the developer to access them. 
 
 Following code is used to add the necessary components to the services so we can access them later:
 ```
