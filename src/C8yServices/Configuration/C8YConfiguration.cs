@@ -1,6 +1,4 @@
-﻿using System;
-
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace C8yServices.Configuration;
 
@@ -38,6 +36,9 @@ public sealed class C8YConfiguration
   [ConfigurationKeyName(name: "Bootstrap_Password")]
   public string BootstrapPassword { get; init; } = string.Empty;
 
+  /// <summary>
+  /// Cumulocity is providing the environment variables with only one "_" after the section, dotnet default expects "__" after the section
+  /// </summary>
   public static C8YConfiguration FromCumulocityPlatform() =>
     new()
     {
@@ -49,7 +50,7 @@ public sealed class C8YConfiguration
 
   private static string GetVariable(string name)
   {
-    var value = System.Environment.GetEnvironmentVariable(name);
+    var value = Environment.GetEnvironmentVariable(name);
 
     return value ?? throw new ArgumentException($"{nameof(value)} is null.");
   }

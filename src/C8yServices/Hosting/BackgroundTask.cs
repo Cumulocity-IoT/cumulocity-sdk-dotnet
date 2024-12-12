@@ -1,12 +1,6 @@
-﻿
+﻿using Microsoft.Extensions.Logging;
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Microsoft.Extensions.Logging;
-
-namespace IotLib.AgentServices.Hosting;
+namespace C8yServices.Hosting;
 
 public sealed class BackgroundTask : IDisposable, IAdjustable
 {
@@ -55,9 +49,9 @@ public sealed class BackgroundTask : IDisposable, IAdjustable
         await _helper.WorkHandler(cancellationTokenSource, this, exceptionRetryData).ConfigureAwait(false);
       }
     }
-    catch (OperationCanceledException)
+    catch (OperationCanceledException e)
     {
-      _logger.LogDebug("OperationCanceledException was thrown.");
+      _logger.LogDebug(e, "OperationCanceledException was thrown.");
     }
   }
 
@@ -67,7 +61,7 @@ public sealed class BackgroundTask : IDisposable, IAdjustable
     {
       return;
     }
-    _taskData.CancellationTokenSource.Cancel();
+    await _taskData.CancellationTokenSource.CancelAsync();
     await _taskData.TimerTask.ConfigureAwait(false);
     _taskData.CancellationTokenSource.Dispose();
     _taskData = null;

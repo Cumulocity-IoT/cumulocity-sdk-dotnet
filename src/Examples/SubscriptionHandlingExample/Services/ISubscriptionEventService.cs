@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using SubscriptionHandlingExample.Models;
+﻿using SubscriptionHandlingExample.Models;
 
 namespace SubscriptionHandlingExample.Services;
 public interface ISubscriptionEventService

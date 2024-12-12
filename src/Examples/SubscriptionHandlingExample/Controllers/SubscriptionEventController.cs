@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using C8yServices.Authentication.Basic;
+﻿using C8yServices.Authentication.Basic;
 using C8yServices.Authentication.OAuth;
 using C8yServices.Configuration;
 using C8yServices.Extensions.Security;
@@ -70,11 +65,9 @@ public sealed class SubscriptionEventController : ControllerBase
   {
     var tenant = User.GetC8yTenant();
 
-    if (tenant is null || tenant != _bootstrapTenant)
-    {
-      return Unauthorized();
-    }
-    return await _subscriptionEventService.RemoveAllSubscriptionAddedEvents(cancellationToken);
+    return tenant is null || tenant != _bootstrapTenant
+      ? (ActionResult<bool>)Unauthorized()
+      : (ActionResult<bool>)await _subscriptionEventService.RemoveAllSubscriptionAddedEvents(cancellationToken);
   }
 
   [HttpDelete("removed")]
@@ -82,10 +75,8 @@ public sealed class SubscriptionEventController : ControllerBase
   {
     var tenant = User.GetC8yTenant();
 
-    if (tenant is null || tenant != _bootstrapTenant)
-    {
-      return Unauthorized();
-    }
-    return await _subscriptionEventService.RemoveAllSubscriptionRemovedEvents(cancellationToken);
+    return tenant is null || tenant != _bootstrapTenant
+      ? (ActionResult<bool>)Unauthorized()
+      : (ActionResult<bool>)await _subscriptionEventService.RemoveAllSubscriptionRemovedEvents(cancellationToken);
   }
 }

@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using C8yServices.Authentication.Basic;
+﻿using C8yServices.Authentication.Basic;
 using C8yServices.Authentication.OAuth;
 using C8yServices.Extensions.Security;
 
@@ -22,7 +17,11 @@ namespace RestControllerExample.Controllers;
 [ApiController]
 [Route("example")] // base path, may also be empty
 [Authorize(AuthenticationSchemes = $"{BasicAuthenticationDefaults.AuthenticationScheme},{OAuthAuthenticationDefaults.AuthenticationScheme}")] // possible authentication schemes (can only use schemes that have been added to IServiceCollection)
+#pragma warning disable IDE0079 // Remove unnecessary suppression
+#pragma warning disable S6960 // Controllers should not have mixed responsibilities, ok for this example
 public sealed class ExampleController : ControllerBase
+#pragma warning restore S6960 // Controllers should not have mixed responsibilities, ok for this example
+#pragma warning restore IDE0079 // Remove unnecessary suppression
 {
   private readonly IExampleManagedObjectService _exampleManagedObjectService;
   private readonly IExampleUserService _exampleUserService;

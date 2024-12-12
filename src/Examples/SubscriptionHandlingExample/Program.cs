@@ -1,20 +1,12 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
-using System.Threading;
 
 using C8yServices.Bootstrapping;
+using C8yServices.Extensions.HealthAndMetrics;
 using C8yServices.Extensions.Hosting;
-using C8yServices.HealthAndMetrics;
 
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-
-using RestControllerExample;
-
+using SubscriptionHandlingExample;
 using SubscriptionHandlingExample.Services;
-
 
 var host = Host.CreateDefaultBuilder(args)
   .ConfigureHealthAndMetrics<Startup>(int.TryParse(Environment.GetEnvironmentVariable("SERVER_PORT"), out var portNumber) ? portNumber : 80)
@@ -31,9 +23,8 @@ logger.LogInformation("########## {AssemblyName} ##########", typeof(Program).As
 logger.LogInformation("AssemblyVersion: {AssemblyVersion}", FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion);
 
 var bootstrapService = host.Services.GetRequiredService<ICumulocityCoreLibrayFactory>(); // fetch the core cumulocity library factory
-await host.Services.GetRequiredService<SubscriptionListenerExample>().StartAsync(CancellationToken.None); // start service to receive changes on subscriptions
 await bootstrapService.InitOrRefresh(); // initialize current service users at startup
 host.Services.GetRequiredService<CumulocityCoreLibrayFactoryCredentialRefresh>().Start(); // start process to periodically check for new subscriptions
-
+await host.Services.GetRequiredService<SubscriptionListenerExample>().StartAsync(CancellationToken.None); // start service to receive changes on subscriptions
 
 await host.RunAsync();

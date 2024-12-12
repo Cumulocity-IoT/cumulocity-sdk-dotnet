@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using C8yServices.Utils;
+﻿using C8yServices.Utils;
 
 using Client.Com.Cumulocity.Client.Api;
 

@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 
 namespace C8yServices.Authentication.OAuth;
 

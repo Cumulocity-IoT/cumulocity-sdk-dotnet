@@ -1,10 +1,4 @@
-﻿
-
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Client.Com.Cumulocity.Client.Api;
+﻿using Client.Com.Cumulocity.Client.Api;
 
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 

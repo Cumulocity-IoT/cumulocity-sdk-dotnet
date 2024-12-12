@@ -1,6 +1,4 @@
-﻿
-
-namespace C8yServices.Authentication.Bearer;
+﻿namespace C8yServices.Authentication.Bearer;
 
 /// <summary>
 /// Default values used by Bearer Authentication scheme.

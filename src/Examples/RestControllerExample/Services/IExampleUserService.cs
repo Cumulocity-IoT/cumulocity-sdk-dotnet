@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-using Client.Com.Cumulocity.Client.Model;
+﻿using Client.Com.Cumulocity.Client.Model;
 
 using OneOf;
 

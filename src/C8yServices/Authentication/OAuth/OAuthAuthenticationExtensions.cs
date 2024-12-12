@@ -1,8 +1,4 @@
-﻿
-
-using System;
-
-using C8yServices.Authentication.Common;
+﻿using C8yServices.Authentication.Common;
 using C8yServices.Extensions.Hosting;
 
 using Microsoft.AspNetCore.Authentication;
