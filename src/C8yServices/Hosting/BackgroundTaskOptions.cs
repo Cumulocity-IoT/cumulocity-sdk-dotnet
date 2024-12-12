@@ -1,9 +1,4 @@
-﻿
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace IotLib.AgentServices.Hosting;
+﻿namespace C8yServices.Hosting;
 
 public sealed class BackgroundTaskOptions
 {

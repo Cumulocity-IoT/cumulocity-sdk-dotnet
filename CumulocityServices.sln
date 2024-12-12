@@ -17,6 +17,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestControllerExample", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionHandlingExample", "src\Examples\SubscriptionHandlingExample\SubscriptionHandlingExample.csproj", "{8452F05C-83BC-4B49-8A27-1BF310A86EFC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DDEB22F4-D4BB-4B3E-95E5-9D783784CD07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{3C7E09E2-6212-4C74-B19F-872B99C86DC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationExample", "src\Examples\NotificationExample\NotificationExample.csproj", "{1A74C549-0CF7-4EA5-95A4-BF058259818F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,11 +45,18 @@ Global
 		{8452F05C-83BC-4B49-8A27-1BF310A86EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8452F05C-83BC-4B49-8A27-1BF310A86EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8452F05C-83BC-4B49-8A27-1BF310A86EFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A74C549-0CF7-4EA5-95A4-BF058259818F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A74C549-0CF7-4EA5-95A4-BF058259818F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A74C549-0CF7-4EA5-95A4-BF058259818F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A74C549-0CF7-4EA5-95A4-BF058259818F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83954C45-D573-46B6-9C2D-7C9A18675AEC}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3C7E09E2-6212-4C74-B19F-872B99C86DC1} = {DDEB22F4-D4BB-4B3E-95E5-9D783784CD07}
 	EndGlobalSection
 EndGlobal

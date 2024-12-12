@@ -1,9 +1,4 @@
-﻿
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-using IotLib.AgentServices.Hosting;
+﻿using C8yServices.Hosting;
 
 using Microsoft.Extensions.Logging;
 

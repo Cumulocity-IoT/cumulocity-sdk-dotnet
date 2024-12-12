@@ -1,6 +1,4 @@
-﻿
-
-namespace C8yServices.Authentication.Common;
+﻿namespace C8yServices.Authentication.Common;
 
 /// <summary>
 /// Default values used by several schemes commonly.

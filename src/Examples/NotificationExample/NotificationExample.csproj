@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+    <PropertyGroup>
+        <RootNamespace>NotificationExample</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\C8yServices\C8yServices.csproj" />
+    </ItemGroup>
+</Project>

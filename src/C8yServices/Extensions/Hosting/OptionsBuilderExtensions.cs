@@ -1,6 +1,4 @@
-﻿
-
-using C8yServices.ConfigurationValidation;
+﻿using C8yServices.ConfigurationValidation;
 
 using FluentValidation;
 

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
 
 using C8yServices.Bootstrapping;
+using C8yServices.Extensions.HealthAndMetrics;
 using C8yServices.Extensions.Hosting;
-using C8yServices.HealthAndMetrics;
-
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 using RestControllerExample;
 using RestControllerExample.Services;

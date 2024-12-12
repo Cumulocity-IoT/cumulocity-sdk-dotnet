@@ -1,9 +1,4 @@
-﻿
-
-using System;
-using System.Collections.Generic;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+﻿using System.Text.Encodings.Web;
 
 using C8yServices.Authentication.Common;
 

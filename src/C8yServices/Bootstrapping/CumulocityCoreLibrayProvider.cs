@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Collections.Concurrent;
 
 using C8yServices.Configuration;
-using C8yServices.Extensions;
+using C8yServices.Extensions.Http;
 
 using Client.Com.Cumulocity.Client.Supplementary;
 

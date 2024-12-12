@@ -1,16 +1,10 @@
-﻿
-
-using System;
-using System.Collections.Generic;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+﻿using System.Text.Encodings.Web;
 
 using C8yServices.Authentication.Common;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
 
 namespace C8yServices.Authentication.Bearer;
 

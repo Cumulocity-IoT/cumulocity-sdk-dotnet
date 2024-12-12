@@ -1,11 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-using C8yServices.Bootstrapping;
-
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-
+﻿using C8yServices.Bootstrapping;
 
 namespace SubscriptionHandlingExample.Services;
 public sealed class SubscriptionListenerExample : BackgroundService

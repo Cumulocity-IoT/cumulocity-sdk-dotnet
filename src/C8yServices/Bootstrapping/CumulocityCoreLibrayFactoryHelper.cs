@@ -1,10 +1,4 @@
-﻿
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Client.Com.Cumulocity.Client.Api;
+﻿using Client.Com.Cumulocity.Client.Api;
 using Client.Com.Cumulocity.Client.Model;
 
 namespace C8yServices.Bootstrapping;

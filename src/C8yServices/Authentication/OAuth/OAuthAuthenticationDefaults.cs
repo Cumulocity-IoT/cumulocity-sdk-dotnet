@@ -1,6 +1,4 @@
-﻿
-
-namespace C8yServices.Authentication.OAuth;
+﻿namespace C8yServices.Authentication.OAuth;
 
 public static class OAuthAuthenticationDefaults
 {

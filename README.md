@@ -87,6 +87,39 @@ var managedObjectsOfType = ICumulocityCoreLibrary.RequestAllByQueryAsync<Managed
 ```
 Please find more detailed examples in the [RestControllerExample project](https://github.com/SoftwareAG/cumulocity-sdk-dotnet/tree/main/src/Examples/RestControllerExample).
 
+### Notification2 integration
+With the notification2 integration we are able to create subscriptions and listen to them. Basic information about this can be found [here](https://www.cumulocity.com/api/core/#tag/About-notifications-2.0).  
+The handling with the c8y api (see [Notification2 API](https://www.cumulocity.com/api/core/#tag/Notification-2.0-API)) is handled internally, this SDK offers following functionality in an interface:
+```
+public interface INotificationService : IAsyncDisposable
+{
+  /// <summary>
+  /// Creates or gets subscription in Cumulocity, creates new token and start listening on the handler.
+  /// </summary>
+  Task<OneOf<Success, TenantSubscriptionError, ApiError>> Register(string tenantId, WithHandlerRegisterNotification withHandlerRegisterNotification, CancellationToken cancellationToken = default);
+
+  /// <summary>
+  /// Stops listening on the handler and unsubscribe token in Cumulocity. The subscription is still existing afterwards.
+  /// </summary>
+  Task<OneOf<Success, NotFound, TenantSubscriptionError, ApiError>> Unregister(string tenantId, string subscriptionName, CancellationToken cancellationToken = default);
+
+  /// <summary>
+  /// Stops listening on the handler and subscribe token in Cumulocity. This also deletes the subscription in Cumulocity.
+  /// </summary>
+  Task<OneOf<Success, NotFound, TenantSubscriptionError, ApiError>> DeleteSubscription(string tenantId, string subscriptionName, CancellationToken cancellationToken = default);
+
+  /// <summary>
+  /// Gets web socket state.
+  /// </summary>
+  OneOf<WebSocketState, NotFound> GetWebSocketState(string tenantId, string subscriptionName);
+}
+```
+To receive notifcations, you need a implementation of an [IDataFeedHandler](https://github.com/SoftwareAG/cumulocity-sdk-dotnet/tree/main/src/Notifications/Services/IDataFeedHandler.cs) which basically reacts on the notification and contains the business logic of the implementer.
+
+Please find a more detailed example in the [NotificationExampleProject](https://github.com/SoftwareAG/cumulocity-sdk-dotnet/tree/main/src/Examples/NotificationExample), which also contains an example for an *IDataFeedHandler*.
+
+**Caution: Subscriptions (only the ones that are persistent) can take up a lot of resources when not handled properly. So if there is no consumer anymore, the subscription should always be deleted. It is not sufficient to unregister from it because (unless its non persistent) then the backlog for the subscriptions will still be increased until the consumer registers again.**
+
 ### Health and metrics
 HealthAndMetricsStartup per default offers two endpoints:
 - a standard health endpoint (/data/health)

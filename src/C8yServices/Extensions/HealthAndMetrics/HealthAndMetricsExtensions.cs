@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using C8yServices.HealthAndMetrics;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 
 using Prometheus;
 
-namespace C8yServices.HealthAndMetrics;
+namespace C8yServices.Extensions.HealthAndMetrics;
 
 /// <summary>
 /// Extensions to easily configure health and metrics endpoints

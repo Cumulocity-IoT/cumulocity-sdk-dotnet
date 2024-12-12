@@ -1,11 +1,7 @@
-﻿
-
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Text;
 
-namespace C8yServices.Extensions;
+namespace C8yServices.Extensions.Http;
 
 /// <summary>
 /// provides extensions for <c>HttpClient</c>s

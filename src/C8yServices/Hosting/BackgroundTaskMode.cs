@@ -1,5 +1,4 @@
-﻿
-namespace IotLib.AgentServices.Hosting;
+﻿namespace C8yServices.Hosting;
 
 public enum BackgroundTaskMode
 {

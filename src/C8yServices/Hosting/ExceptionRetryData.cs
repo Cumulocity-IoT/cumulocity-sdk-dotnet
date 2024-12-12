@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace IotLib.AgentServices.Hosting;
+﻿namespace C8yServices.Hosting;
 
 public sealed class ExceptionRetryData
 {
