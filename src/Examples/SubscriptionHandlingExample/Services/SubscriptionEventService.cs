@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using C8yServices.Bootstrapping;
+﻿using C8yServices.Bootstrapping;
 using C8yServices.Configuration;
 using C8yServices.Inventory;
 
@@ -11,7 +6,6 @@ using Client.Com.Cumulocity.Client.Api;
 using Client.Com.Cumulocity.Client.Model;
 using Client.Com.Cumulocity.Client.Supplementary;
 
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 using SubscriptionHandlingExample.Models;

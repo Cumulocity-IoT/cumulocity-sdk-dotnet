@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Client.Com.Cumulocity.Client.Supplementary;
-
+﻿using Client.Com.Cumulocity.Client.Supplementary;
 
 namespace C8yServices.Bootstrapping;
 

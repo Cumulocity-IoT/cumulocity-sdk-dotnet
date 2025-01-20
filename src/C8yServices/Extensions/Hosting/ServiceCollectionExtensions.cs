@@ -1,14 +1,14 @@
-﻿
-
-using System;
-using System.Net.Http;
-using System.Threading;
-
-using C8yServices.Authentication.Common;
+﻿using C8yServices.Authentication.Common;
 using C8yServices.Bootstrapping;
 using C8yServices.Configuration;
+using C8yServices.Extensions.Http;
+using C8yServices.Extensions.Notifications;
+using C8yServices.Notifications.Models;
+using C8yServices.Notifications.Services;
 
 using Client.Com.Cumulocity.Client.Api;
+
+using FluentValidation;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +22,15 @@ namespace C8yServices.Extensions.Hosting;
 /// </summary>
 public static class ServiceCollectionExtensions
 {
+  public static IServiceCollection AddNotifications(this IServiceCollection collection, IConfiguration configuration)
+  {
+    collection.AddTransient<IValidator<NotificationServiceConfiguration>, NotificationServiceConfigurationValidator>();
+    collection.AddConfigurationWithValidation<NotificationServiceConfiguration>(configuration, NotificationServiceConfiguration.Section);
+    collection.AddNotifications();
+
+    return collection;
+  }
+
   public static IServiceCollection AddCumulocityCoreLibraryProvider(this IServiceCollection serviceCollection)
   {
     serviceCollection.AddSingleton<ICumulocityCoreLibrayFactory, CumulocityCoreLibrayFactory>();

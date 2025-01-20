@@ -1,6 +1,4 @@
-﻿
-
-namespace C8yServices.Authentication.Basic;
+﻿namespace C8yServices.Authentication.Basic;
 
 /// <summary>
 /// Default values used by Basic Access Authentication scheme.

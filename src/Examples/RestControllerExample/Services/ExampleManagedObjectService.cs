@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Net;
 
 using C8yServices.Bootstrapping;
 using C8yServices.Inventory;
 
 using Client.Com.Cumulocity.Client.Supplementary;
 
-using Microsoft.Extensions.Logging;
-
 using OneOf;
 using OneOf.Types;
 
 using RestControllerExample.Models;
-
 
 namespace RestControllerExample.Services;
 public sealed class ExampleManagedObjectService : IExampleManagedObjectService

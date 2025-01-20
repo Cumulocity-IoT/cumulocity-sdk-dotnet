@@ -6,17 +6,22 @@ namespace C8yServices.TestUtils;
 
 public static class LoggerMockExtensions
 {
-  /// <summary>
-  /// verifies if logging at given level with given message and optional exception was executed given times on given mock
-  /// </summary>
-  public static void VerifyWithException<T>(this Mock<T> loggerMock, LogLevel logLevel, string message, Times times, Exception? exception = null) where T : class, ILogger =>
-    loggerMock.Verify(x => x.Log(logLevel, It.IsAny<EventId>(), It.Is<It.IsAnyType>((any, _) => any.ToString() == message), It.Is<Exception?>(e => AreExceptionsTheSame(e, exception)), It.IsAny<Func<It.IsAnyType, Exception?, string>>()), times);
+  public static void VerifyWithException<TException>(this Mock<ILogger> loggerMock, LogLevel logLevel, string startMessage, Times times) 
+    where TException : Exception =>
+    loggerMock.Verify(logger => logger.Log(logLevel, It.IsAny<EventId>(), It.Is<It.IsAnyType>((any, _) => StartWith(any, startMessage)), It.Is<Exception?>(e => IsExpectedExceptionType<TException>(e)), It.IsAny<Func<It.IsAnyType, Exception?, string>>()), times);
 
+  private static bool StartWith<T>(T obj, string startMessage)
+  {
+    var value = obj?.ToString();
 
-  private static bool AreExceptionsTheSame(Exception? exception, Exception? expectedException) =>
+    return value is not null && value.StartsWith(startMessage, StringComparison.InvariantCulture);
+  }
+
+  private static bool IsExpectedExceptionType<TException>(Exception? exception)
+    where TException : Exception =>
     exception switch
     {
-      null when expectedException is null => true,
-      _ => exception is not null && expectedException is not null && exception == expectedException
+      null => false,
+      _ => exception is TException
     };
 }
