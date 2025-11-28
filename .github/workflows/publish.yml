@@ -16,7 +16,7 @@ on:
 
 env:
   DOTNET_VERSION: '8.0.x'
-  PROJECT_PATH: 'src/C8yServices/C8yServices.csproj'  # adjust if needed
+  PROJECT_PATH: 'src/C8yServices/C8yServices.csproj'
 
 jobs:
   build-and-publish:
