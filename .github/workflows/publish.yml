@@ -1,0 +1,72 @@
+name: Build · Pack · Publish C8yServices (GitHub Packages)
+
+permissions:
+  contents: read
+  packages: write
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      package_version:
+        description: 'Optional package version to use when running manually (e.g. 1.2.3)'
+        required: false
+        default: ''
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  PROJECT_PATH: 'src/C8yServices/C8yServices.csproj'  # adjust if needed
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore
+        run: dotnet restore "${{ env.PROJECT_PATH }}"
+
+      - name: Build
+        run: dotnet build "${{ env.PROJECT_PATH }}" --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test --configuration Release --no-build --verbosity normal || true
+
+      - name: Compute package version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            tag="${{ github.event.release.tag_name }}"
+            ver="${tag#v}"
+            echo "version=${ver}" >> "$GITHUB_OUTPUT"
+          elif [ -n "${{ github.event.inputs.package_version }}" ]; then
+            echo "version=${{ github.event.inputs.package_version }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "ERROR: No release tag and no package_version provided." >&2
+            exit 1
+          fi
+
+      - name: Pack C8yServices
+        run: |
+          mkdir -p ./artifacts
+          dotnet pack "${{ env.PROJECT_PATH }}" -c Release -o ./artifacts /p:IncludeSymbols=false /p:PackageVersion=${{ steps.version.outputs.version }} --no-build
+
+      - name: Add GitHub Packages feed
+        run: |
+          dotnet nuget add source --username "${{ github.repository_owner }}" --password "${{ secrets.GITHUB_TOKEN }}" --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" || true
+
+      - name: Push package to GitHub Packages
+        run: |
+          ls -la ./artifacts || true
+          for nupkg in ./artifacts/*.nupkg; do
+            if [ -f "$nupkg" ]; then
+              dotnet nuget push "$nupkg" --source github --api-key "${{ secrets.GITHUB_TOKEN }}" --skip-duplicate
+            f
+          done
