@@ -52,7 +52,18 @@ jobs:
             echo "ERROR: No release tag and no package_version provided." >&2
             exit 1
           fi
-
+          
+      - name: Copy repository README into project (to be used as package readme)
+        run: |
+          # copy top-level README.md into project folder so dotnet pack can include it as PackageReadmeFile
+          if [ -f README.md ]; then
+            proj_dir=$(dirname "${{ env.PROJECT_PATH }}")
+            cp README.md "$proj_dir/README.md"
+            echo "Copied README.md -> $proj_dir/README.md"
+          else
+            echo "No README.md found at repo root; skipping."
+          fi
+          
       - name: Pack C8yServices
         run: |
           mkdir -p ./artifacts
