@@ -34,12 +34,7 @@ public class PulsarConsoleService
     {
         _services = services;
         _logger = logger;
-        
-        // Get subscription name from configuration or use assembly name as fallback
-        var config = services.GetRequiredService<IOptions<C8YConfiguration>>().Value;
-        _subscriptionName = config.ApplicationName 
-            ?? Assembly.GetEntryAssembly()?.GetName().Name 
-            ?? "pulsar-consumer";
+        _subscriptionName = "demo-consumer";
         
         logger.LogInformation("Using subscription name: {SubscriptionName}", _subscriptionName);
     }
@@ -466,7 +461,7 @@ public class PulsarConsoleService
         try
         {
             var messageBytes = Encoding.UTF8.GetBytes(message);
-            await producer.Send(messageBytes);
+            await producer.SendAsync(new DotPulsar.MessageMetadata(),messageBytes);
             Console.WriteLine($"\n✓ Message sent to tenant {tenant}");
             Console.WriteLine($"  Topic: {pulsarService.FromDeviceTopic}");
             Console.WriteLine($"  Content: {message}");
