@@ -1,23 +1,24 @@
-﻿using C8yServices.Bootstrapping;
+﻿using C8yServices.RestApi;
+using C8yServices.Subscriptions;
 
 namespace SubscriptionHandlingExample.Services;
 public sealed class SubscriptionListenerExample : BackgroundService
 {
   private readonly ILogger<SubscriptionListenerExample> _logger;
-  private readonly ICumulocityCoreLibraryProvider _cumulocityApiProvider;
+  private readonly IServiceCredentialsFactory _serviceCredentialsFactory;
   private readonly ISubscriptionEventService _subscriptionEventService;
 
-  public SubscriptionListenerExample(ILogger<SubscriptionListenerExample> logger, ICumulocityCoreLibraryProvider cumulocityApiProvider, ISubscriptionEventService subscriptionEventService)
+  public SubscriptionListenerExample(ILogger<SubscriptionListenerExample> logger, IServiceCredentialsFactory serviceCredentialsFactory, ISubscriptionEventService subscriptionEventService)
   {
     _logger = logger;
-    _cumulocityApiProvider = cumulocityApiProvider;
+    _serviceCredentialsFactory = serviceCredentialsFactory;
     _subscriptionEventService = subscriptionEventService;
   }
 
   protected override Task ExecuteAsync(CancellationToken stoppingToken)
   {
-    _cumulocityApiProvider.SubscriptionAddedEventHandler += OnSubscriptionAdded;
-    _cumulocityApiProvider.SubscriptionRemovedEventHandler += OnSubscriptionRemoved;
+    _serviceCredentialsFactory.SubscriptionAdded += OnSubscriptionAdded;
+    _serviceCredentialsFactory.SubscriptionRemoved += OnSubscriptionRemoved;
     _logger.LogInformation("Subscription listener initialized");
     return Task.CompletedTask;
   }

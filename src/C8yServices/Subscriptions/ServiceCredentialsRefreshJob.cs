@@ -2,18 +2,18 @@
 
 using Microsoft.Extensions.Logging;
 
-namespace C8yServices.Bootstrapping;
+namespace C8yServices.Subscriptions;
 
-public sealed class CumulocityCoreLibrayFactoryCredentialRefresh : IDisposable
+public sealed class ServiceCredentialsRefreshJob : IDisposable
 {
   private readonly BackgroundTask _backgroundTask;
-  private readonly ICumulocityCoreLibrayFactory _cumulocityApiFactory;
+  private readonly IServiceCredentialsFactory _serviceCredentialsFactory;
   private readonly ILogger _logger;
   private const int IntervalInMinutes = 1;
 
-  public CumulocityCoreLibrayFactoryCredentialRefresh(ILoggerFactory loggerFactory, ICumulocityCoreLibrayFactory cumulocityApiFactory)
+  public ServiceCredentialsRefreshJob(ILoggerFactory loggerFactory, IServiceCredentialsFactory serviceCredentialsFactory)
   {
-    _cumulocityApiFactory = cumulocityApiFactory;
+    _serviceCredentialsFactory = serviceCredentialsFactory;
     _logger = loggerFactory.CreateLogger(GetType());
     _backgroundTask = new BackgroundTask(new BackgroundTaskOptions(TimeSpan.FromMinutes(IntervalInMinutes), (token, _) => DoWork(token), BackgroundTaskMode.TryFixedTriggerTime), loggerFactory);
   }
@@ -30,7 +30,7 @@ public sealed class CumulocityCoreLibrayFactoryCredentialRefresh : IDisposable
   {
     _logger.LogDebug("Refreshing api credentials.");
 
-    return _cumulocityApiFactory.InitOrRefresh(token);
+    return _serviceCredentialsFactory.InitOrRefresh(token);
   }
 
   public void Dispose() =>

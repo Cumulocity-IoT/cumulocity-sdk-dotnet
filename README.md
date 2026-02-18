@@ -25,32 +25,31 @@ C8Y_BOOTSTRAP_USER=<usernameOfTheBootstrapuser>
 C8Y_BOOTSTRAP_PASSWORD=<passwordOfTheBootstrapuser>
 ```
 
-To initialise the service users once on startup (or whenever you like), the following code can be used:
+To initialise the service users once on startup and start the periodic refresh process:
 ```
-// fetch the bootstrap service from the services
-var bootstrapService = host.Services.GetRequiredService<ICumulocityCoreLibrayFactory>(); 
-// initialize current service users at startup
-await bootstrapService.InitOrRefresh(); 
-```
-
-To start the process to periodically update the service users, the following code can be used:
-```
-// start process to periodically check for new subscriptions
-host.Services.GetRequiredService<CumulocityCoreLibrayFactoryCredentialRefresh>().Start(); 
+var bootstrapService = host.Services.GetRequiredService<IServiceCredentialsFactory>();
+await bootstrapService.InitOrRefresh(); // initialize current service users at startup
+host.Services.GetRequiredService<ServiceCredentialsRefreshJob>().Start(); // start process to periodically check for new subscriptions
 ```
 
 To access the ICumulocityCoreLibrary for subscribed tenants you have to use the "ICumulocityCoreLibraryProvider". The interface looks like this:
+```csharp
+public interface ICumulocityCoreLibraryProvider
+{
+  IReadOnlyCollection<string> GetAllSubscribedTenants();
+  ICumulocityCoreLibrary? GetForTenant(string tenantId);
+}
 ```
-// get tenantIds of all subscribed tenants
-IReadOnlyCollection<string> GetAllSubscribedTenants();
-// get ICumulocityCoreLibrary for a specific tenant
-ICumulocityCoreLibrary? GetForTenant(string tenantId);
-// used by the credential refresh task to update credentials
-void UpdateCumulocityApiCredentials(IEnumerable<Credentials> credentials);
-// can be used to register an event handler when a new subscription has been added
-event EventHandler<string> SubscriptionAddedEventHandler;
-// can be used to register an event handler when a subscription has been removed
-event EventHandler<string> SubscriptionRemovedEventHandler;
+
+To listen for subscription changes, use the `IServiceCredentialsFactory`:
+```csharp
+public interface IServiceCredentialsFactory
+{
+  Task InitOrRefresh(CancellationToken token = default);
+  event EventHandler<ServiceCredentials>? ApiCredentialsUpdated;
+  event EventHandler<string>? SubscriptionAdded;
+  event EventHandler<string>? SubscriptionRemoved;
+}
 ```
 Note: An example on how to use this can be found in [SubscriptionHandlingExample project](https://github.com/SoftwareAG/cumulocity-sdk-dotnet/tree/main/src/Examples/SubscriptionHandlingExample).
 

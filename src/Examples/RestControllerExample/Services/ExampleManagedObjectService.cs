@@ -1,7 +1,8 @@
 ﻿using System.Net;
 
-using C8yServices.Bootstrapping;
+
 using C8yServices.Inventory;
+using C8yServices.RestApi;
 
 using Client.Com.Cumulocity.Client.Supplementary;
 

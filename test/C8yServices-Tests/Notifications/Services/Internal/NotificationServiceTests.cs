@@ -154,6 +154,6 @@ public sealed class NotificationServiceTests : IAsyncDisposable
     new(CreateRegisterNotification(), _dataFeedHandlerMock.Object);
 
   private static ApiRegisterNotification CreateRegisterNotification() =>
-    ApiRegisterNotification.TryCreate("serviceName", ApiType.Alarms, null).AsT0;
+    ApiRegisterNotification.TryCreate("serviceName", ApiType.Alarms, null, null, null).AsT0;
 
 }

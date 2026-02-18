@@ -1,21 +1,21 @@
 ﻿using Client.Com.Cumulocity.Client.Api;
 using Client.Com.Cumulocity.Client.Model;
 
-namespace C8yServices.Bootstrapping;
+namespace C8yServices.Subscriptions;
 
-public sealed class CumulocityCoreLibrayFactoryHelper
+public sealed class ServiceCredentialsFactoryHelper : IServiceCredentialsFactoryHelper
 {
   private readonly ICurrentApplicationApi _currentApplicationApi;
 
-  public CumulocityCoreLibrayFactoryHelper(ICurrentApplicationApi currentApplicationApi)
+  public ServiceCredentialsFactoryHelper(ICurrentApplicationApi currentApplicationApi)
   {
     _currentApplicationApi = currentApplicationApi;
   }
 
-  public async Task<IEnumerable<Credentials>> GetApiCredentials(CancellationToken token = default)
+  public async Task<IEnumerable<ServiceCredentials>> GetApiCredentials(CancellationToken token = default)
   {
     var subscribedUsers = await GetUsers(token);
-    return subscribedUsers.Select(subscribedUser => new Credentials(subscribedUser.Tenant ?? string.Empty, subscribedUser.Name ?? string.Empty, subscribedUser.Password ?? string.Empty)).ToList();
+    return subscribedUsers.Select(subscribedUser => new ServiceCredentials(subscribedUser.Tenant ?? string.Empty, subscribedUser.Name ?? string.Empty, subscribedUser.Password ?? string.Empty)).ToList();
   }
 
   private async Task<IEnumerable<ApplicationUserCollection.Users>> GetUsers(CancellationToken token = default)

@@ -96,7 +96,7 @@ public class InventoryApiHelperTests
   private static Expression<Func<IManagedObjectsApi, Task<ManagedObjectCollection<T>?>>> GetManagedObjectsExpression<T>(string? type = null, int? currentPage = null,
     int? pageSize = null, string? query = null, bool? withChildren = false, bool? withParents = false) where T : ManagedObject
   {
-    return x => x.GetManagedObjects<T>(null, null, null, currentPage, null, null, null, null, pageSize, null, query, null, null, type, withChildren, null, null, withParents, null, null, It.IsAny<CancellationToken>());
+    return x => x.GetManagedObjects<T>(null, null, null, currentPage, null, null, null, null, pageSize, null, query, null, null, type, withChildren, null, null, withParents, null, null, null, It.IsAny<CancellationToken>());
   }
 
   [JsonConverter(typeof(ManagedObjectJsonConverter<TestManagedObjectNoRequestParams>))]
