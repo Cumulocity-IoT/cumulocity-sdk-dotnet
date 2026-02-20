@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{3C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationExample", "src\Examples\NotificationExample\NotificationExample.csproj", "{1A74C549-0CF7-4EA5-95A4-BF058259818F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PulsarExample", "src\Examples\PulsarExample\PulsarExample.csproj", "{BEF2AAB9-D315-412F-82E2-E82A96AB5529}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{1A74C549-0CF7-4EA5-95A4-BF058259818F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A74C549-0CF7-4EA5-95A4-BF058259818F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A74C549-0CF7-4EA5-95A4-BF058259818F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEF2AAB9-D315-412F-82E2-E82A96AB5529}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEF2AAB9-D315-412F-82E2-E82A96AB5529}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEF2AAB9-D315-412F-82E2-E82A96AB5529}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEF2AAB9-D315-412F-82E2-E82A96AB5529}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +64,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3C7E09E2-6212-4C74-B19F-872B99C86DC1} = {DDEB22F4-D4BB-4B3E-95E5-9D783784CD07}
+		{BEF2AAB9-D315-412F-82E2-E82A96AB5529} = {3C7E09E2-6212-4C74-B19F-872B99C86DC1}
 	EndGlobalSection
 EndGlobal

@@ -2,23 +2,23 @@
 
 using C8yServices.Configuration;
 using C8yServices.Extensions.Http;
+using C8yServices.Subscriptions;
 
 using Client.Com.Cumulocity.Client.Supplementary;
 
 using Microsoft.Extensions.Options;
 
-namespace C8yServices.Bootstrapping;
+namespace C8yServices.RestApi;
 
 internal class CumulocityCoreLibrayProvider : ICumulocityCoreLibraryProvider
 {
-  private readonly ConcurrentDictionary<string, CumulocityApiCacheEntry> _cumulocityApiCache = [];
+  private readonly ConcurrentDictionary<string, CumulocityApiCacheEntry> _cumulocityApiCache = new();
   private readonly Uri _baseUrl;
-  public event EventHandler<string> SubscriptionAddedEventHandler = delegate { };
-  public event EventHandler<string> SubscriptionRemovedEventHandler = delegate { };
 
-  public CumulocityCoreLibrayProvider(IOptions<C8YConfiguration> c8YConfiguration)
+  public CumulocityCoreLibrayProvider(IOptions<C8YConfiguration> c8YConfiguration, IServiceCredentialsFactory serviceCredentialsFactory)
   {
     _baseUrl = c8YConfiguration.Value.BaseUrl!;
+    serviceCredentialsFactory.ApiCredentialsUpdated += UpdateCumulocityApiCredentials;
   }
 
   public IReadOnlyCollection<string> GetAllSubscribedTenants()
@@ -31,10 +31,10 @@ internal class CumulocityCoreLibrayProvider : ICumulocityCoreLibraryProvider
     return _cumulocityApiCache.TryGetValue(tenantId, out var api) ? api.CumulocityCoreLibrary : null;
   }
 
-  public void UpdateCumulocityApiCredentials(IEnumerable<Credentials> credentials)
+  private void UpdateCumulocityApiCredentials(object? sender, ServiceCredentials credentials)
   {
     var newSubscriptions = new List<string>();
-    foreach (var credentialsItem in credentials)
+    foreach (var credentialsItem in new[] { credentials })
     {
       _cumulocityApiCache.AddOrUpdate(credentialsItem.Tenant, (key) =>
       {
@@ -51,21 +51,6 @@ internal class CumulocityCoreLibrayProvider : ICumulocityCoreLibraryProvider
         cumulocityCoreLibrary.HttpClient.UpdateBasicAuth(credentialsItem.Tenant, credentialsItem.User, credentialsItem.Password);
         return cumulocityCoreLibrary;
       });
-    }
-
-    // invoke event handlers for new subscriptions
-    foreach (var newSubscription in newSubscriptions) 
-    {
-      SubscriptionAddedEventHandler.Invoke(this, newSubscription);
-    }
-
-    foreach (var tenant in _cumulocityApiCache.Keys)
-    {
-      if (!credentials.Any(credential => credential.Tenant.Equals(tenant, StringComparison.Ordinal)))
-      {
-        SubscriptionRemovedEventHandler.Invoke(this, tenant);
-        _cumulocityApiCache.Remove(tenant, out _);
-      }
     }
   }
 

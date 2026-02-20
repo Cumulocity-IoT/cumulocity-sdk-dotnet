@@ -1,10 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-using C8yServices.Bootstrapping;
-
 using C8yServices.Common.Models;
 
 using C8yServices.Notifications.Models.Internal;
+using C8yServices.RestApi;
 
 using OneOf;
 using OneOf.Types;

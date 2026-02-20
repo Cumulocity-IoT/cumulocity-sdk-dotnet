@@ -4,5 +4,7 @@ public enum ApiType
 {
   Alarms,
   Events,
-  ManagedObjects
+  ManagedObjects,
+  Measurements,
+  Operations
 }

@@ -1,7 +1,7 @@
-﻿using C8yServices.Bootstrapping;
-using C8yServices.Common.Models;
+﻿using C8yServices.Common.Models;
 using C8yServices.Notifications.Models;
 using C8yServices.Notifications.Models.Internal;
+using C8yServices.RestApi;
 
 using Client.Com.Cumulocity.Client.Api;
 using Client.Com.Cumulocity.Client.Supplementary;

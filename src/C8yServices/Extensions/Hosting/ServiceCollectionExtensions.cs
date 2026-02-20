@@ -1,10 +1,12 @@
 ﻿using C8yServices.Authentication.Common;
-using C8yServices.Bootstrapping;
 using C8yServices.Configuration;
 using C8yServices.Extensions.Http;
 using C8yServices.Extensions.Notifications;
+using C8yServices.MqttService;
 using C8yServices.Notifications.Models;
 using C8yServices.Notifications.Services;
+using C8yServices.RestApi;
+using C8yServices.Subscriptions;
 
 using Client.Com.Cumulocity.Client.Api;
 
@@ -31,12 +33,53 @@ public static class ServiceCollectionExtensions
     return collection;
   }
 
+  /// <summary>
+  /// Adds service credentials infrastructure for multi-tenant credential management.
+  /// This is called automatically by <see cref="AddPulsarServices"/> and <see cref="AddCumulocityCoreLibraryProvider"/>.
+  /// Requires <see cref="AddC8YConfigurationFromCumulocityPlatform"/> or <see cref="AddC8YConfiguration"/> to be called first.
+  /// </summary>
+  /// <param name="serviceCollection">The service collection to add services to.</param>
+  /// <returns>The service collection for chaining.</returns>
+  public static IServiceCollection AddServiceCredentials(this IServiceCollection serviceCollection)
+  {
+    serviceCollection.AddSingleton<IServiceCredentialsFactoryHelper, ServiceCredentialsFactoryHelper>();
+    serviceCollection.AddSingleton<IServiceCredentialsFactory, ServiceCredentialsFactory>();
+    serviceCollection.AddSingleton<ServiceCredentialsRefreshJob>();
+    serviceCollection.AddCurrentApplicationApi();
+
+    return serviceCollection;
+  }
+
+  /// <summary>
+  /// Adds Pulsar/MQTT services for multi-tenant message consumption and production.
+  /// Automatically includes service credentials infrastructure.
+  /// Requires <see cref="AddC8YConfigurationFromCumulocityPlatform"/> or <see cref="AddC8YConfiguration"/> to be called first.
+  /// </summary>
+  /// <param name="serviceCollection">The service collection to add services to.</param>
+  /// <returns>The service collection for chaining.</returns>
+  public static IServiceCollection AddPulsarServices(this IServiceCollection serviceCollection)
+  {
+    serviceCollection.AddServiceCredentials();
+    serviceCollection.AddSingleton<PulsarServiceProvider>();
+    serviceCollection.AddSingleton<IPulsarServiceProvider>(sp => sp.GetRequiredService<PulsarServiceProvider>());
+    serviceCollection.AddSingleton<ICredentialAwareService>(sp => sp.GetRequiredService<PulsarServiceProvider>());
+
+    return serviceCollection;
+  }
+
+  /// <summary>
+  /// Adds Cumulocity REST API provider for multi-tenant API access.
+  /// Automatically includes service credentials infrastructure.
+  /// Requires <see cref="AddC8YConfigurationFromCumulocityPlatform"/> or <see cref="AddC8YConfiguration"/> to be called first.
+  /// </summary>
+  /// <param name="serviceCollection">The service collection to add services to.</param>
+  /// <returns>The service collection for chaining.</returns>
   public static IServiceCollection AddCumulocityCoreLibraryProvider(this IServiceCollection serviceCollection)
   {
-    serviceCollection.AddSingleton<ICumulocityCoreLibrayFactory, CumulocityCoreLibrayFactory>();
-    serviceCollection.AddSingleton<CumulocityCoreLibrayFactoryCredentialRefresh>();
-    serviceCollection.AddCurrentApplicationApi();
-    serviceCollection.AddSingleton<ICumulocityCoreLibraryProvider, CumulocityCoreLibrayProvider>();
+    serviceCollection.AddServiceCredentials();
+    serviceCollection.AddSingleton<CumulocityCoreLibrayProvider>();
+    serviceCollection.AddSingleton<ICumulocityCoreLibraryProvider>(sp => sp.GetRequiredService<CumulocityCoreLibrayProvider>());
+    serviceCollection.AddSingleton<ICredentialAwareService>(sp => sp.GetRequiredService<CumulocityCoreLibrayProvider>());
 
     return serviceCollection;
   }

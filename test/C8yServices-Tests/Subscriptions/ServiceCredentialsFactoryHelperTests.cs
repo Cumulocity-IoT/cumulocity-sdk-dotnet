@@ -3,7 +3,7 @@ using Client.Com.Cumulocity.Client.Model;
 
 using Moq;
 
-namespace C8yServices.Bootstrapping;
+namespace C8yServices.Subscriptions;
 
 public class CumulocityCoreLibraryFactoryHelperTests
 {
@@ -17,7 +17,7 @@ public class CumulocityCoreLibraryFactoryHelperTests
       {
         PUsers = new List<ApplicationUserCollection.Users> { new() { Tenant = tenant, Name = string.Empty, Password = string.Empty }, new() { Tenant = "other tenant" } }
       });
-    var helper = new CumulocityCoreLibrayFactoryHelper(apiMock.Object);
+    var helper = new ServiceCredentialsFactoryHelper(apiMock.Object);
     var result = await helper.GetApiCredentials();
 
     Assert.Equal(2, result.Count());

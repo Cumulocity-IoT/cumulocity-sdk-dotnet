@@ -9,10 +9,23 @@ internal static class RegisterNotificationExtensions
   {
     if (registerNotification is ObjectRegisterNotification objectRegisterNotification)
     {
-      return new ObjectSubscription(objectRegisterNotification.SubscriptionName, objectRegisterNotification.Id, objectRegisterNotification.FragmentsToCopy, objectRegisterNotification.NonPersistent);
+      return new ObjectSubscription(
+        objectRegisterNotification.SubscriptionName,
+        objectRegisterNotification.Id,
+        objectRegisterNotification.ApiTypes,
+        objectRegisterNotification.Type,
+        objectRegisterNotification.FragmentsToCopy,
+        objectRegisterNotification.NonPersistent
+      );
     }
-    var apiRegisterNotification = (ApiRegisterNotification)registerNotification;
+    var apiRegisterNotification = (TenantRegisterNotification)registerNotification;
 
-    return new ApiSubscription(apiRegisterNotification.SubscriptionName, apiRegisterNotification.Api, apiRegisterNotification.Type, apiRegisterNotification.FragmentsToCopy, apiRegisterNotification.NonPersistent);
+    return new TenantSubscription(
+      apiRegisterNotification.SubscriptionName,
+      apiRegisterNotification.ApiTypes,
+      apiRegisterNotification.Type,
+      apiRegisterNotification.FragmentsToCopy,
+      apiRegisterNotification.NonPersistent
+    );
   }
 }

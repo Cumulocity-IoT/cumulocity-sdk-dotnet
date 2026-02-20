@@ -1,6 +1,6 @@
-﻿using C8yServices.Bootstrapping;
-using C8yServices.Configuration;
+﻿using C8yServices.Configuration;
 using C8yServices.Inventory;
+using C8yServices.RestApi;
 
 using Client.Com.Cumulocity.Client.Api;
 using Client.Com.Cumulocity.Client.Model;

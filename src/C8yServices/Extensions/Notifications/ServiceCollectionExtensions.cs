@@ -25,8 +25,12 @@ public static class ServiceCollectionExtensions
       .AddSingleton<ITokenService, TokenService>()
       .AddSingleton<ISubscriptionService, SubscriptionService>()
       .AddSingleton<IMessageExtractor, MessageExtractor>()
-      .AddSingleton<INotificationService>(static provider => new NotificationService(
-        provider.GetRequiredService<IRealTimeWebSocketClientFactory>(), provider.GetRequiredService<INotificationServiceHelper>(), []))
+      .AddSingleton<INotificationServiceProvider>(provider =>
+        new NotificationServiceProvider(tenantId =>
+          new NotificationService(
+            tenantId,
+            provider.GetRequiredService<IRealTimeWebSocketClientFactory>(),
+            provider.GetRequiredService<INotificationServiceHelper>())))
       .AddCumulocityCoreLibraryProvider()
       .AddSingleton<IRealTimeWebSocketClientFactory>(static provider => new RealTimeWebSocketClientFactory(provider.GetRequiredService<ILogger<RealTimeWebSocketClientFactory>>(),
         provider.GetRequiredService<IClientWebSocketWrapperFactory>(),

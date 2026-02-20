@@ -36,6 +36,10 @@ public sealed class C8YConfiguration
   [ConfigurationKeyName(name: "Bootstrap_Password")]
   public string BootstrapPassword { get; init; } = string.Empty;
 
+  [ConfigurationKeyName(name: "BaseUrl_Pulsar")]
+  public Uri? BaseUrlPulsar { get; init; }
+
+
   /// <summary>
   /// Cumulocity is providing the environment variables with only one "_" after the section, dotnet default expects "__" after the section
   /// </summary>
@@ -45,7 +49,8 @@ public sealed class C8YConfiguration
       BaseUrl = new Uri(GetVariable("C8Y_BASEURL")),
       BootstrapPassword = GetVariable("C8Y_BOOTSTRAP_PASSWORD"),
       BootstrapTenant = GetVariable("C8Y_BOOTSTRAP_TENANT"),
-      BootstrapUsername = GetVariable("C8Y_BOOTSTRAP_USER")
+      BootstrapUsername = GetVariable("C8Y_BOOTSTRAP_USER"),
+      BaseUrlPulsar = new Uri(GetVariable("C8Y_BASEURL_PULSAR"))
     };
 
   private static string GetVariable(string name)

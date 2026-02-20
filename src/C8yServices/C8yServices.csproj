@@ -6,11 +6,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="DotPulsar" Version="5.1.2" />
         <PackageReference Include="GitInfo" Version="2.3.0" />
-		<PackageReference Include="Com.Cumulocity.Client" Version="1.0.0-rc.0.41" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.2" />
+		<PackageReference Include="Com.Cumulocity.Client" Version="1.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
         <PackageReference Include="OneOf" Version="3.0.255" />
         <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
         <PackageReference Include="MinVer" Version="4.2.0">

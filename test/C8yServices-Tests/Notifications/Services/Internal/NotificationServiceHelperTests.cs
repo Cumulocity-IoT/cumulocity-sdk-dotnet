@@ -1,7 +1,7 @@
-﻿using C8yServices.Bootstrapping;
-using C8yServices.Common.Models;
+﻿using C8yServices.Common.Models;
 using C8yServices.Notifications.Models;
 using C8yServices.Notifications.Models.Internal;
+using C8yServices.RestApi;
 
 using Client.Com.Cumulocity.Client.Api;
 using Client.Com.Cumulocity.Client.Supplementary;
@@ -37,7 +37,7 @@ public class NotificationServiceHelperTests
     var tenantId = "100";
     _subscriptionServiceMock.Setup(service => service.Get(It.IsAny<ISubscriptionsApi>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
       .ReturnsAsync(new ApiError("error", null));
-    var result = await _helper.GetToken(tenantId, new ApiSubscription("subscriptionName", ApiType.Alarms, null));
+    var result = await _helper.GetToken(tenantId, new TenantSubscription("subscriptionName", new[] { ApiType.Alarms }, null));
 
     Assert.Equal("error", result.AsT2.Message);
   }
@@ -49,7 +49,7 @@ public class NotificationServiceHelperTests
       .ReturnsAsync((string?)null);
     _subscriptionServiceMock.Setup(service => service.Create(_subscriptionsApiMock.Object, It.IsAny<Subscription>(), It.IsAny<CancellationToken>()))
       .ReturnsAsync(new ApiError("error", null));
-    var result = await _helper.GetToken(_tenantId, new ApiSubscription("subscriptionName", ApiType.Alarms, null));
+    var result = await _helper.GetToken(_tenantId, new TenantSubscription("subscriptionName", new[] { ApiType.Alarms }, null));
 
     Assert.Equal("error", result.AsT2.Message);
   }
@@ -63,7 +63,7 @@ public class NotificationServiceHelperTests
       .ReturnsAsync("id");
     _tokenServiceMock.Setup(service => service.CreateToken(_tokensApiMock.Object, It.IsAny<TokenClaim>(), It.IsAny<CancellationToken>()))
       .ReturnsAsync(new ApiError("error", null));
-    var result = await _helper.GetToken(_tenantId, new ApiSubscription("subscriptionName", ApiType.Alarms, null));
+    var result = await _helper.GetToken(_tenantId, new TenantSubscription("subscriptionName", new[] { ApiType.Alarms }, null));
 
     Assert.Equal("error", result.AsT2.Message);
   }
@@ -77,7 +77,7 @@ public class NotificationServiceHelperTests
       .ReturnsAsync("id");
     _tokenServiceMock.Setup(service => service.CreateToken(_tokensApiMock.Object, It.IsAny<TokenClaim>(), It.IsAny<CancellationToken>()))
       .ReturnsAsync("token");
-    var result = await _helper.GetToken(_tenantId, new ApiSubscription("subscriptionName", ApiType.Alarms, null));
+    var result = await _helper.GetToken(_tenantId, new TenantSubscription("subscriptionName", new[] { ApiType.Alarms }, null));
 
     Assert.Equal("token", result.AsT0.Token);
   }
@@ -89,7 +89,7 @@ public class NotificationServiceHelperTests
       .ReturnsAsync("id");
     _tokenServiceMock.Setup(service => service.CreateToken(_tokensApiMock.Object, It.IsAny<TokenClaim>(), It.IsAny<CancellationToken>()))
       .ReturnsAsync(new ApiError("error", null));
-    var result = await _helper.GetToken(_tenantId, new ApiSubscription("subscriptionName", ApiType.Alarms, null));
+    var result = await _helper.GetToken(_tenantId, new TenantSubscription("subscriptionName", new[] { ApiType.Alarms }, null));
 
     Assert.Equal("error", result.AsT2.Message);
   }
@@ -101,7 +101,7 @@ public class NotificationServiceHelperTests
       .ReturnsAsync("id");
     _tokenServiceMock.Setup(service => service.CreateToken(_tokensApiMock.Object, It.IsAny<TokenClaim>(), It.IsAny<CancellationToken>()))
       .ReturnsAsync("token");
-    var result = await _helper.GetToken(_tenantId, new ApiSubscription("subscriptionName", ApiType.Alarms, null));
+    var result = await _helper.GetToken(_tenantId, new TenantSubscription("subscriptionName", new[] { ApiType.Alarms }, null));
 
     Assert.Equal("token", result.AsT0.Token);
   }
