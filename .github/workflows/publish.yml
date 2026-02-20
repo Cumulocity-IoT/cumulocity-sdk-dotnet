@@ -79,5 +79,5 @@ jobs:
           for nupkg in ./artifacts/*.nupkg; do
             if [ -f "$nupkg" ]; then
               dotnet nuget push "$nupkg" --source github --api-key "${{ secrets.GITHUB_TOKEN }}" --skip-duplicate
-            f
+            fi
           done
