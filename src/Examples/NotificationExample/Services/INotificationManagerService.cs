@@ -9,7 +9,7 @@ namespace NotificationExample.Services;
 
 public interface INotificationManagerService
 {
-  Task<OneOf<ApiRegisterNotification, Error<string>>> CreateApiSubscription(string tenantId, ApiNotificationCreateInput input, CancellationToken cancellationToken);
+  Task<OneOf<TenantRegisterNotification, Error<string>>> CreateTenantSubscription(string tenantId, TenantNotificationCreateInput input, CancellationToken cancellationToken);
   Task<OneOf<ObjectRegisterNotification, Error<string>>> CreateObjectSubscription(string tenantId, ObjectNotificationCreateInput input, CancellationToken cancellationToken);
   Task<OneOf<Success, Error>> DeleteSubscription(string tenantId, string subscriptionName, CancellationToken cancellationToken);
   Task<OneOf<Success, Error>> UnregisterSubscription(string tenantId, string subscriptionName, CancellationToken cancellationToken);

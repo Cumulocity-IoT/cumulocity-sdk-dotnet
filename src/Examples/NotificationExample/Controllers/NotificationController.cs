@@ -22,8 +22,8 @@ public class NotificationController : ControllerBase
     _notificationManagerService = notificationManagerService;
   }
 
-  [HttpPost("notifications/api")] // endpoint for creating new notification subscriptions
-  public async Task<ActionResult> CreateApiSubscription([FromBody] ApiNotificationCreateInput input, CancellationToken token)
+  [HttpPost("notifications/tenant")] // endpoint for creating new notification subscriptions
+  public async Task<ActionResult> CreateTenantSubscription([FromBody] TenantNotificationCreateInput input, CancellationToken token)
   {
     var tenant = User.GetC8yTenant();
 
@@ -32,7 +32,7 @@ public class NotificationController : ControllerBase
       return Unauthorized();
     }
 
-    var result = await _notificationManagerService.CreateApiSubscription(tenant, input, token);
+    var result = await _notificationManagerService.CreateTenantSubscription(tenant, input, token);
     return result.IsT0 ? Ok() : BadRequest();
   }
 

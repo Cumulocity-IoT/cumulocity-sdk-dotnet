@@ -7,15 +7,15 @@ namespace C8yServices.Notifications.Models;
 
 public sealed record ObjectRegisterNotification : RegisterNotification, IEqualityOperators<ObjectRegisterNotification, ObjectRegisterNotification, bool>
 {
-  private ObjectRegisterNotification(string subscriptionName, string id, IReadOnlyCollection<string>? fragmentsToCopy, bool? nonPersistent)
-    : base(subscriptionName, fragmentsToCopy, nonPersistent)
+  private ObjectRegisterNotification(string subscriptionName, string id, IReadOnlyCollection<ApiType>? apiTypes, string? type, IReadOnlyCollection<string>? fragmentsToCopy, bool? nonPersistent)
+    : base(subscriptionName, apiTypes, type, fragmentsToCopy, nonPersistent)
   {
     Id = id;
   }
 
   public string Id { get; }
 
-  public static OneOf<ObjectRegisterNotification, Error<string>> TryCreate(string serviceName, string id, IReadOnlyCollection<string>? fragmentsToCopy, bool? nonPersistent)
+  public static OneOf<ObjectRegisterNotification, Error<string>> TryCreate(string serviceName, string id, IReadOnlyCollection<ApiType>? apiTypes, string? type, IReadOnlyCollection<string>? fragmentsToCopy, bool? nonPersistent)
   {
     var errors = new List<string>();
     if (string.IsNullOrWhiteSpace(serviceName))
@@ -28,8 +28,7 @@ public sealed record ObjectRegisterNotification : RegisterNotification, IEqualit
     }
 
     return errors.Count > 0
-    ? new Error<string>(string.Join(" ", errors))
-      : new ObjectRegisterNotification(serviceName, id, fragmentsToCopy, nonPersistent);
+      ? new Error<string>(string.Join(" ", errors))
+      : new ObjectRegisterNotification(serviceName, id, apiTypes, type, fragmentsToCopy, nonPersistent);
   }
-
 }

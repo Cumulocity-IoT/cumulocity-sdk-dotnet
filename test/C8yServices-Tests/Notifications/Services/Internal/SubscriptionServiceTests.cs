@@ -22,7 +22,7 @@ public class SubscriptionServiceTests
     const string id = "id";
     _subscriptionsApiMock.Setup(api => api.CreateSubscription(It.IsAny<NotificationSubscription>(), It.IsAny<string?>(), It.IsAny<CancellationToken>()))
       .ReturnsAsync(new NotificationSubscription { Id = id });
-    var result = await _subscriptionService.Create(_subscriptionsApiMock.Object, new ApiSubscription("subscriptionName", ApiType.Alarms, null));
+    var result = await _subscriptionService.Create(_subscriptionsApiMock.Object, new TenantSubscription("subscriptionName", new[] { ApiType.Alarms }, null));
     Assert.True(result.IsT0);
     Assert.Equal(id, result.AsT0);
   }
@@ -30,7 +30,7 @@ public class SubscriptionServiceTests
   [Fact]
   public async Task CreateError()
   {
-    var result = await _subscriptionService.Create(_subscriptionsApiMock.Object, new ApiSubscription("subscriptionName", ApiType.Alarms, null));
+    var result = await _subscriptionService.Create(_subscriptionsApiMock.Object, new TenantSubscription("subscriptionName", new[] { ApiType.Alarms }, null));
     Assert.True(result.IsT1);
     Assert.Equal(Constants.NullResultApiError, result.AsT1);
   }

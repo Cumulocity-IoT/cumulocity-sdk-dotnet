@@ -8,19 +8,15 @@ using C8yServices.Subscriptions;
 
 using NotificationExample;
 using NotificationExample.Services;
-using NotificationExample.Services.DataFeedHandlers;
 
 var host = Host.CreateDefaultBuilder(args)
   .ConfigureHealthAndMetrics<Startup>(int.TryParse(Environment.GetEnvironmentVariable("SERVER_PORT"), out var portNumber) ? portNumber : 8080)
   .ConfigureServices((context, services) => services
     .AddC8YConfigurationFromCumulocityPlatform()  // adds IConfiguration<C8YConfiguration> to be used for accessing bootstrapping information
-    .AddNotifications(context.Configuration) // adds INotificationService to be used to create 
+    .AddNotifications(context.Configuration) // adds INotificationServiceProvider to be used to create 
     .AddCumulocityCoreLibraryProvider() // adds ICumulocityCoreLibraryProvider to be used for accessing subscribed subtenants 
     .AddSingleton<INotificationManagerService, NotificationManagerService>()
-    .AddSingleton<ManagedObjectDataFeedHandler>()
-    .AddSingleton<AlarmDataFeedHandler>()
-    .AddSingleton<EventDataFeedHandler>()
-    .AddSingleton<ObjectDataFeedHandler>())
+    .AddSingleton<DataFeedHandler>())
   .Build();
 
 var logger = host.Services.GetRequiredService<ILogger<Program>>();

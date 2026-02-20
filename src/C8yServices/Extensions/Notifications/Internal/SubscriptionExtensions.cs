@@ -1,6 +1,7 @@
 ﻿using C8yServices.Notifications.Models.Internal;
 
 using Client.Com.Cumulocity.Client.Model;
+using System.Globalization;
 
 namespace C8yServices.Extensions.Notifications.Internal;
 
@@ -17,14 +18,14 @@ internal static class SubscriptionExtensions
         NonPersistent = subscription.NonPersistent
       };
     }
-    var apiSubscription = (ApiSubscription)subscription;
+    var tenantSubscription = (TenantSubscription)subscription;
 
-    return new NotificationSubscription(NotificationSubscription.Context.TENANT, apiSubscription.Name)
+    return new NotificationSubscription(NotificationSubscription.Context.TENANT, tenantSubscription.Name)
     {
       PSubscriptionFilter = new NotificationSubscription.SubscriptionFilter
       {
-        Apis = [apiSubscription.Api.ToString().ToLowerInvariant()],
-        TypeFilter = apiSubscription.Type
+        Apis = [.. tenantSubscription.ApiTypes.Select(apiType => apiType.ToString().ToLower(CultureInfo.InvariantCulture))],
+        TypeFilter = tenantSubscription.Type
       },
       FragmentsToCopy = [.. subscription.FragmentsToCopy],
       NonPersistent = subscription.NonPersistent

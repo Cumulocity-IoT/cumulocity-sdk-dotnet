@@ -6,8 +6,8 @@ namespace C8yServices.Notifications.Models.Internal;
 [ExcludeFromCodeCoverage(Justification = Constants.NothingToTest)]
 internal sealed record ObjectSubscription : Subscription, IEqualityOperators<ObjectSubscription, ObjectSubscription, bool>
 {
-  public ObjectSubscription(string subscriptionName, string id, IReadOnlyCollection<string>? fragmentsToCopy = null, bool? nonPersistent = null) 
-    : base(subscriptionName, fragmentsToCopy, nonPersistent) =>
+  public ObjectSubscription(string subscriptionName, string id, IReadOnlyCollection<ApiType>? apiTypes = null, string? type = null, IReadOnlyCollection<string>? fragmentsToCopy = null, bool? nonPersistent = null)
+    : base(subscriptionName, apiTypes, type, fragmentsToCopy, nonPersistent) =>
     Id = id;
 
   public string Id { get; }
