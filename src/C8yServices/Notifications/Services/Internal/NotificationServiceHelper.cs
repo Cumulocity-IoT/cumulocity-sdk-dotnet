@@ -40,7 +40,7 @@ internal sealed class NotificationServiceHelper : INotificationServiceHelper
     var subscriptionId = getSubscriptionResult.AsT0;
     if (subscriptionId is not null)
     {
-      var tokenClaim1 = new TokenClaim(subscriptionId, subscription.Name);
+      var tokenClaim1 = new TokenClaim(subscriptionId, subscription.Name, subscription.NonPersistent);
       var createTokenResult1 = await _tokenService.CreateToken(tokensApi, tokenClaim1, cancellationToken).ConfigureAwait(false);
 
       return createTokenResult1.IsT0 ? new TokenClaimWithToken(tokenClaim1, createTokenResult1.AsT0) : createTokenResult1.AsT1;
@@ -51,7 +51,7 @@ internal sealed class NotificationServiceHelper : INotificationServiceHelper
       return createSubscriptionResult.AsT1;
     }
     subscriptionId = createSubscriptionResult.AsT0;
-    var tokenClaim2 = new TokenClaim(subscriptionId, subscription.Name);
+    var tokenClaim2 = new TokenClaim(subscriptionId, subscription.Name, subscription.NonPersistent);
     var createTokenResult2 = await _tokenService.CreateToken(tokensApi, tokenClaim2, cancellationToken).ConfigureAwait(false);
 
     return createTokenResult2.IsT0 ? new TokenClaimWithToken(tokenClaim2, createTokenResult2.AsT0) : createTokenResult2.AsT1;
