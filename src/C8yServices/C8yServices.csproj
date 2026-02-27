@@ -3,7 +3,7 @@
     <PropertyGroup>
         <RootNamespace>C8yServices</RootNamespace>
         <NoWarn>CA1848,CA1707,CA1711,CA1716,CA1720</NoWarn>
-        <Version>1.0.0</Version>
+        <Version>1.0.1</Version>
     </PropertyGroup>
 
     <ItemGroup>

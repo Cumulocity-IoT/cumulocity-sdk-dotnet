@@ -5,6 +5,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="C8yServices" Version="1.0.0" />
+    <PackageReference Include="C8yServices" Version="1.0.1" />
   </ItemGroup>
 </Project>
