@@ -23,10 +23,10 @@ public class NotificationServiceProvider : INotificationServiceProvider
   /// <summary>
   /// Gets or creates a NotificationService for the specified tenant.
   /// </summary>
-  public INotificationService GetForTenant(string tenantId)
+  public INotificationService? GetForTenant(string tenantId)
   {
-    if (_disposed) throw new ObjectDisposedException(nameof(NotificationServiceProvider));
-    if (string.IsNullOrWhiteSpace(tenantId)) throw new ArgumentNullException(nameof(tenantId));
+    if (_disposed) return null;
+    if (string.IsNullOrWhiteSpace(tenantId)) return null;
     return _services.GetOrAdd(tenantId, _serviceFactory);
   }
 

@@ -25,7 +25,10 @@ internal sealed class TokenService : ITokenService
 
   private static async Task<OneOf<string, ApiError>> CreateTokenInt(ITokensApi tokensApi, TokenClaim tokenClaim, CancellationToken token = default)
   {
-    var claims = new NotificationTokenClaims(tokenClaim.Subscriber, tokenClaim.Subscription);
+    var claims = new NotificationTokenClaims(tokenClaim.Subscriber, tokenClaim.Subscription)
+    {
+      NonPersistent = tokenClaim.NonPersistent
+    };
     var result = await tokensApi.CreateToken(claims, cToken: token).ConfigureAwait(false);
     var resultToken = result?.Token;
 

@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Cumulocity-IoT",
+  "classifications": ["Cumulocity", "Microservice"],
+  "identity": "C8y.Microservice.Template",
+  "name": "Cumulocity Microservice",
+  "shortName": "c8y-microservice",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+    "sourceName": "MicroserviceExample",
+    "sources": [
+      {
+        "source": "./src/MicroserviceExample",
+        "target": "src/MicroserviceExample"
+      },
+      {
+        "source": "../template-sln",
+        "target": "./"
+      }
+    ],
+  "symbols": {
+    "useNotifications": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Add Notification2 support"
+    },
+    "useMqttServices": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Add MQTT services via Pulsar"
+    },
+    "isExternal": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Use AddC8YConfiguration for external apps (default: false, uses AddC8YConfigurationFromCumulocityPlatform)"
+    }
+    ,
+    "disableRefreshJob": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Disable ServiceCredentialsRefreshJob and only call InitOrRefresh at startup"
+    }
+  }
+}

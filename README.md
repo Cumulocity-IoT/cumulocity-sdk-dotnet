@@ -1,4 +1,38 @@
 # CumulocityServices
+
+## Introduction
+This SDK offers developers c8y functionalities that are commonly used across solutions. It is using the [open api generated library](https://github.com/SoftwareAG/cumulocity-clients-dotnet) which is also available on github and builds additional functionality on top of that.
+Developers using this SDK should be familiar with the basic concepts of cumulocity microservice development: https://cumulocity.com/guides/microservice-sdk/concept/
+
+## Project Template Usage
+
+You can quickly scaffold a new Cumulocity microservice project using the included .NET template:
+
+### Install the template locally (from the repo root)
+
+```sh
+dotnet new install ./templates/C8yMicroserviceTemplate
+```
+
+### Create a new project from the template
+
+```sh
+dotnet new c8y-microservice -n MyMicroservice \
+  --useNotifications true \
+  --useMqttServices true \
+  --isExternal false
+```
+
+#### Parameters
+
+- `--useNotifications` (default: false): Add Notification2 support (AddNotifications)
+- `--useMqttServices` (default: false): Add MQTT services via Pulsar (AddPulsarServices)
+- `--isExternal` (default: false): Use AddC8YConfiguration for external apps, otherwise AddC8YConfigurationFromCumulocityPlatform
+
+You can omit parameters to use their default values.
+
+See the SDK documentation and example projects for more details.
+# CumulocityServices
 ## Introduction
 This SDK offers developers c8y functionalities that are commonly used across solutions. It is using the [open api generated library](https://github.com/SoftwareAG/cumulocity-clients-dotnet) which is also available on github and builds additional functionality on top of that.
 Developers using this SDK should be familiar with the basic concepts of cumulocity microservice development: https://cumulocity.com/guides/microservice-sdk/concept/

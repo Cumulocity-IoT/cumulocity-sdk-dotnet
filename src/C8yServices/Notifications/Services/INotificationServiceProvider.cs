@@ -8,5 +8,5 @@ public interface INotificationServiceProvider : IDisposable
   /// <summary>
   /// Gets a NotificationService instance for the specified tenant.
   /// </summary>
-  INotificationService GetForTenant(string tenantId);
+  INotificationService? GetForTenant(string tenantId);
 }

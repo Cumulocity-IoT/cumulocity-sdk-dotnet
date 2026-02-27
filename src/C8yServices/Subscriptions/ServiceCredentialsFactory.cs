@@ -36,6 +36,9 @@ public sealed class ServiceCredentialsFactory : IServiceCredentialsFactory
     var addedTenants = currentTenants.Except(_currentlySubscribedTenants).ToList();
     var removedTenants = _currentlySubscribedTenants.Except(currentTenants).ToList();
 
+    // Notify all subscribers about the new credentials
+    NotifyApiCredentialsUpdated(apiCredentials);
+
     foreach (var tenant in addedTenants)
     {
       // Only fire SubscriptionAdded if tenant is not already present
@@ -48,9 +51,6 @@ public sealed class ServiceCredentialsFactory : IServiceCredentialsFactory
       InvokeEventHandlersSafe(SubscriptionRemoved, tenant, nameof(SubscriptionRemoved));
 
     _currentlySubscribedTenants = currentTenants;
-
-    // Notify all subscribers about the new credentials
-    NotifyApiCredentialsUpdated(apiCredentials);
   }
 
   /// <summary>

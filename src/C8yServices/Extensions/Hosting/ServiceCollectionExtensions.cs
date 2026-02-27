@@ -50,6 +50,14 @@ public static class ServiceCollectionExtensions
     return serviceCollection;
   }
 
+  public static IServiceCollection AddCredentialAwareService<T>(this IServiceCollection services)
+      where T : class, ICredentialAwareService
+  {
+    services.AddSingleton<T>();
+    services.AddSingleton<ICredentialAwareService>(sp => sp.GetRequiredService<T>());
+    return services;
+  }
+
   /// <summary>
   /// Adds Pulsar/MQTT services for multi-tenant message consumption and production.
   /// Automatically includes service credentials infrastructure.
@@ -60,9 +68,8 @@ public static class ServiceCollectionExtensions
   public static IServiceCollection AddPulsarServices(this IServiceCollection serviceCollection)
   {
     serviceCollection.AddServiceCredentials();
-    serviceCollection.AddSingleton<PulsarServiceProvider>();
+    serviceCollection.AddCredentialAwareService<PulsarServiceProvider>();
     serviceCollection.AddSingleton<IPulsarServiceProvider>(sp => sp.GetRequiredService<PulsarServiceProvider>());
-    serviceCollection.AddSingleton<ICredentialAwareService>(sp => sp.GetRequiredService<PulsarServiceProvider>());
 
     return serviceCollection;
   }
@@ -77,9 +84,8 @@ public static class ServiceCollectionExtensions
   public static IServiceCollection AddCumulocityCoreLibraryProvider(this IServiceCollection serviceCollection)
   {
     serviceCollection.AddServiceCredentials();
-    serviceCollection.AddSingleton<CumulocityCoreLibrayProvider>();
+    serviceCollection.AddCredentialAwareService<CumulocityCoreLibrayProvider>();
     serviceCollection.AddSingleton<ICumulocityCoreLibraryProvider>(sp => sp.GetRequiredService<CumulocityCoreLibrayProvider>());
-    serviceCollection.AddSingleton<ICredentialAwareService>(sp => sp.GetRequiredService<CumulocityCoreLibrayProvider>());
 
     return serviceCollection;
   }
