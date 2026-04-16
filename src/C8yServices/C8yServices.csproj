@@ -14,8 +14,6 @@
         <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
         <PackageReference Include="OneOf" Version="3.0.255" />
-        <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
-        <PackageReference Include="Serilog.Extensions.Hosting" Version="5.0.1" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.6.0" />
 		<PackageReference Include="prometheus-net.AspNetCore" Version="7.0.0" />
         <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.6.1" />
